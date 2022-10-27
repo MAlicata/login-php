@@ -1,23 +1,20 @@
 <?php 
-    require 'config.php';
+    $pdo = require 'Connection.php';
 
-    class Connection
-    {
-        public static function make($host, $db, $user, $password, $port)
-        {
-            $dsn = "mysql:host=$host;port=$port;dbname=$db;charset=UTF8";
-    
-            try {
-                $options = [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION];
-        
-                return new PDO($dsn, $user, $password, $options);    
-              
-            } catch (PDOException $e) {
-                die($e->getMessage());
-            }
-        
-        }
-    }    
-      
-    return Connection::make($host, $db, $user, $password, $port);
+    $sql = "SELECT * FROM USUARIOS_PASS WHERE USUARIOS= :login AND PASSWORD= :password";
+    $resultado = $pdo->prepare($sql);
+    $login=htmlentities(addslashes($_POST['login']));
+    $password=htmlentities(addslashes($_POST['password']));
+    $resultado->bindValue(":login", $login);
+    $resultado->bindValue(":password", $password);
+    $resultado->execute();
+    $number_register = $resultado->rowCount();
+
+    if($number_register!=0){
+
+        echo "<h2>Adelante!!</h2>";
+
+    }else{
+        header("location:login.php");
+    }
 ?>
