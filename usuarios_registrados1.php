@@ -18,6 +18,7 @@
     <?php 
         echo "Hola: ". $_SESSION["usuario"] . "<br><br>";
     ?>
+    <a href="close.php">Cerrar Session</a>
     <p>Esto es información para usuarios registrados</p>
 </body>
 </html>
