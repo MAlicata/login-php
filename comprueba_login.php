@@ -12,7 +12,9 @@
 
     if($number_register!=0){
 
-        echo "<h2>Adelante!!</h2>";
+        session_start();
+        $_SESSION["usuario"] = $_POST["login"];
+        header("Location: usuarios_registrados1.php");
 
     }else{
         header("location:login.php");
